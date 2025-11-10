@@ -1,0 +1,43 @@
+{
+  "name": "foodwagen",
+  "description": "FoodWagen monorepo initialized for the CoreDev 2025 web assessment with structure inspired by africa-cdc and kgi projects.",
+  "private": true,
+  "packageManager": "yarn@4.5.0",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*",
+      "tooling/*"
+    ]
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean && rm -rf node_modules .turbo .yarn/cache",
+    "dev": "turbo run dev --parallel --continue",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint --filter=... -- --fix",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "format": "turbo run format",
+    "format:fix": "turbo run format -- --write",
+    "prepare": "husky install",
+    "web:dev": "yarn workspace web dev"
+  },
+  "dependencies": {
+    "@nestjs/cli": "^11.0.7",
+    "superjson": "^2.2.2"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.3.1",
+    "@types/node": "^22.7.4",
+    "eslint": "^9.12.0",
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.1"
+  }
+}

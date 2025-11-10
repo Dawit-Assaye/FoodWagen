@@ -1,0 +1,12 @@
+{
+  "name": "@foodwagen/ts-config",
+  "version": "0.0.1",
+  "files": [
+    "base.json",
+    "next.json",
+    "library.json"
+  ],
+  "peerDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

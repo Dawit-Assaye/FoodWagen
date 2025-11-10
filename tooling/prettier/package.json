@@ -1,0 +1,11 @@
+{
+  "name": "@foodwagen/prettier-config",
+  "version": "0.0.1",
+  "main": "index.cjs",
+  "files": [
+    "index.cjs"
+  ],
+  "peerDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

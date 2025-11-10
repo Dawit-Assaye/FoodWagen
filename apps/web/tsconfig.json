@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tooling/typescript/next.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@foodwagen/types": ["../../packages/types/src/index.ts"],
+      "@foodwagen/ui": ["../../packages/ui/src/index.ts"],
+      "@foodwagen/config": ["../../packages/config/src/index.ts"],
+      "@foodwagen/tailwind-config": ["../../tooling/tailwind/index.cjs"]
+    },
+    "types": ["vitest/globals", "node"],
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/**/*",
+    ".next/types/**/*.ts",
+    "../../packages/types/src/**/*",
+    "../../packages/ui/src/**/*",
+    "../../packages/config/src/**/*"
+  ],
+  "exclude": ["node_modules"]
+}

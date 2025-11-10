@@ -1,0 +1,15 @@
+{
+  "name": "@foodwagen/tailwind-config",
+  "version": "0.0.1",
+  "main": "./index.cjs",
+  "exports": {
+    ".": "./index.cjs"
+  },
+  "files": [
+    "index.cjs",
+    "plugin.cjs"
+  ],
+  "peerDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@foodwagen/eslint-config",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "commonjs",
+  "files": [
+    "index.js",
+    "next.js",
+    "react.js"
+  ],
+  "scripts": {
+    "build": "echo \"no build step\"",
+    "lint": "eslint ."
+  },
+  "peerDependencies": {
+    "@next/eslint-plugin-next": "^14.2.15",
+    "@types/eslint": "^9.6.1",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0"
+  }
+}

@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  @apply food-box-border;
+}
+
+body {
+  @apply food-bg-[#F8F8F8] food-text-secondary food-font-sans food-antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  @apply food-text-primary hover:food-opacity-80 food-transition-opacity;
+}
+
+@layer components {
+  .food-container {
+    @apply food-w-full food-mx-auto food-px-4 md:food-px-6 lg:food-px-8;
+    max-width: 1280px;
+  }
+
+  .food-card:hover {
+    transform: translateY(-4px);
+  }
+}
