@@ -11,7 +11,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "tsup src/index.ts --dts --format esm,cjs --clean",
+    "build": "tsup && tsc --project tsconfig.json --emitDeclarationOnly --outDir dist",
     "clean": "rm -rf dist",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest",

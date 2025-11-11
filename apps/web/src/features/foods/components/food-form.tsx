@@ -80,7 +80,6 @@ export const FoodForm = ({
         </label>
         <input
           id="food_name"
-          name="food_name"
           type="text"
           placeholder="Enter food name"
           className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
@@ -99,7 +98,6 @@ export const FoodForm = ({
         </label>
         <input
           id="food_rating"
-          name="food_rating"
           type="number"
           min={1}
           max={5}
@@ -121,7 +119,6 @@ export const FoodForm = ({
         </label>
         <input
           id="food_image"
-          name="food_image"
           type="url"
           placeholder="Enter food image URL"
           className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
@@ -140,7 +137,6 @@ export const FoodForm = ({
         </label>
         <input
           id="restaurant_name"
-          name="restaurant_name"
           type="text"
           placeholder="Enter restaurant name"
           className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
@@ -159,7 +155,6 @@ export const FoodForm = ({
         </label>
         <input
           id="restaurant_logo"
-          name="restaurant_logo"
           type="url"
           placeholder="Enter restaurant logo URL"
           className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
@@ -178,7 +173,6 @@ export const FoodForm = ({
         </label>
         <select
           id="restaurant_status"
-          name="restaurant_status"
           className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
           aria-describedby={errors.restaurant_status ? "restaurant-status-error" : undefined}
           {...form.register("restaurant_status")}
