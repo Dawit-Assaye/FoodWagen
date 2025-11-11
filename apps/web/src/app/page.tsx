@@ -12,7 +12,6 @@ const HomePage = () => {
   const [serviceType, setServiceType] = useState<ServiceType>("Delivery");
 
   const handleAddMealClick = () => {
-    // Trigger the modal in the dashboard
     if ((window as any).__openAddMealModal) {
       (window as any).__openAddMealModal();
     }

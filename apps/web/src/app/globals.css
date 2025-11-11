@@ -28,5 +28,6 @@ a {
 
   .food-card:hover {
     transform: translateY(-4px);
+    transition: transform 150ms ease-out;
   }
 }

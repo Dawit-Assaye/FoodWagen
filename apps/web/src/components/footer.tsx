@@ -8,8 +8,6 @@ export const Footer = () => {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle subscription logic here
-    console.log("Subscribed:", email);
     setEmail("");
   };
 
@@ -17,7 +15,6 @@ export const Footer = () => {
     <footer className="food-w-full food-bg-[#212121] food-text-white food-mt-16">
       <div className="food-container food-py-12 food-px-4 md:food-px-6 lg:food-px-8">
         <div className="food-grid food-grid-cols-1 md:food-grid-cols-2 lg:food-grid-cols-4 food-gap-8 food-mb-8">
-          {/* Company */}
           <div>
             <h3 className="food-text-lg food-font-bold food-mb-4">Company</h3>
             <ul className="food-space-y-2 food-text-gray-400">
@@ -56,7 +53,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="food-text-lg food-font-bold food-mb-4">Contact</h3>
             <ul className="food-space-y-2 food-text-gray-400">
@@ -87,7 +83,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="food-text-lg food-font-bold food-mb-4">Legal</h3>
             <ul className="food-space-y-2 food-text-gray-400">
@@ -126,7 +121,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Follow Us & Newsletter */}
           <div>
             <h3 className="food-text-lg food-text-gray-400 food-font-bold food-mb-4">FOLLOW US</h3>
             <div className="food-flex food-gap-4 food-mb-6">
@@ -161,8 +155,11 @@ export const Footer = () => {
             <p className="food-text-base food-text-gray-400 food-mb-4 food-font-semibold">
               Receive exclusive offers in your mailbox
             </p>
-            <form onSubmit={handleSubscribe} className="food-space-y-3">
-              <div className="food-relative">
+            <form
+              onSubmit={handleSubscribe}
+              className="food-flex food-w-full food-gap-2 food-items-center"
+            >
+              <div className="food-relative food-flex-1">
                 <svg
                   className="food-absolute food-left-3 food-top-1/2 food-transform -food-translate-y-1/2 food-w-5 food-h-5 food-text-gray-400"
                   fill="none"
@@ -187,7 +184,7 @@ export const Footer = () => {
               <FoodButton
                 type="submit"
                 variant="secondary"
-                className="food-w-full food-rounded-lg food-py-3"
+                className="food-w-fit food-rounded-lg food-py-3 food-px-5"
               >
                 Subscribe
               </FoodButton>
@@ -195,7 +192,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="food-border-t food-border-gray-700 food-pt-8 food-mt-8">
           <div className="food-flex food-flex-col md:food-flex-row food-items-center food-justify-between food-gap-4 food-text-sm food-text-gray-400">
             <p>

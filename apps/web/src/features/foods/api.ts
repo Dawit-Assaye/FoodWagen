@@ -40,7 +40,6 @@ export const fetchFoods = async (
 
   return data.filter((item) => {
     const itemType = normalizeServiceType(
-      // Some APIs may use different casing or property names; attempt to map gracefully.
       (item as FoodItem & { service_type?: string; type?: string }).serviceType ??
         (item as { service_type?: string }).service_type ??
         (item as { type?: string }).type,

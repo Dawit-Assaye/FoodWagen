@@ -35,11 +35,10 @@ export const FoodCard = ({ food, onEdit, onDelete, index = 0 }: FoodCardProps) =
 
   return (
     <article
-      className=" food-rounded-2xl food-overflow-hidden  food-transition-all food-duration-200 hover:food-shadow-xl"
+      className="food-bg-white food-rounded-2xl food-overflow-hidden food-shadow-md food-transition-all food-duration-[150ms] food-ease-out hover:food-shadow-xl food-animate-food-slide-up"
       style={{ animationDelay: `${index * 50}ms` }}
       data-test-id="food-card"
     >
-      {/* Image with Price Tag */}
       <div className="food-relative food-w-full food-h-48 food-bg-gray-200">
         <Image
           src={food.image}
@@ -61,18 +60,17 @@ export const FoodCard = ({ food, onEdit, onDelete, index = 0 }: FoodCardProps) =
                 fill="white"
               />
             </svg>
-            $
-            {typeof food.price === "number" ? food.price.toFixed(2) : Number(food.price).toFixed(2)}
+            <span className="food-price">
+              ${typeof food.price === "number" ? food.price.toFixed(2) : Number(food.price).toFixed(2)}
+            </span>
           </div>
         )}
       </div>
 
-      {/* Card Content */}
       <div className="food-py-4 food-space-y-3 food-w-full ">
-        {/* Restaurant Logo and Meal Name */}
         <div className="food-flex food-items-center food-gap-3 food-w-full ">
           {restaurant?.logo ? (
-            <div className="food-relative food-h-10 food-w-10 food-flex-shrink-0 food-overflow-hidden food-rounded-md food-bg-gray-100">
+            <div className="restaurant-logo food-relative food-h-10 food-w-10 food-flex-shrink-0 food-overflow-hidden food-rounded-md food-bg-gray-100">
               <Image
                 src={restaurant.logo}
                 alt={`${restaurant.name ?? "Restaurant"} logo`}
@@ -82,16 +80,15 @@ export const FoodCard = ({ food, onEdit, onDelete, index = 0 }: FoodCardProps) =
               />
             </div>
           ) : (
-            <div className="food-h-10 food-w-10 food-flex-shrink-0 food-flex food-items-center food-justify-center food-rounded-md food-bg-gray-200 food-text-xs food-font-semibold food-text-gray-600">
+            <div className="restaurant-logo food-h-10 food-w-10 food-flex-shrink-0 food-flex food-items-center food-justify-center food-rounded-md food-bg-gray-200 food-text-xs food-font-semibold food-text-gray-600">
               ?
             </div>
           )}
           <div className="food-flex-1 food-w-full">
             <div className="food-flex food-items-center food-justify-between food-gap-2 ">
-              <h3 className="food-text-lg food-font-semibold food-text-gray-800 food-truncate">
+              <h3 className="food-name food-text-lg food-font-semibold food-text-gray-800 food-truncate">
                 {food.name}
               </h3>
-              {/* Options Menu */}
               <div className="food-relative" ref={menuRef}>
                 <button
                   onClick={(e) => {
@@ -148,7 +145,7 @@ export const FoodCard = ({ food, onEdit, onDelete, index = 0 }: FoodCardProps) =
               >
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
               </svg>
-              <span className="food-text-sm food-font-medium food-text-secondary">
+              <span className="food-rating food-text-sm food-font-medium food-text-secondary">
                 {food.rating != null
                   ? (typeof food.rating === "number" ? food.rating : Number(food.rating)).toFixed(1)
                   : "N/A"}
@@ -157,9 +154,8 @@ export const FoodCard = ({ food, onEdit, onDelete, index = 0 }: FoodCardProps) =
           </div>
         </div>
 
-        {/* Status Button */}
         <div
-          className={`food-w-fit food-py-2 food-px-4 food-rounded-xl food-text-sm food-font-semibold food-text-center ${
+          className={`restaurant-status food-w-fit food-py-2 food-px-4 food-rounded-xl food-text-sm food-font-semibold food-text-center ${
             isOpen
               ? "food-bg-green-600/10 food-text-green-600"
               : "food-bg-secondary/10 food-text-secondary"

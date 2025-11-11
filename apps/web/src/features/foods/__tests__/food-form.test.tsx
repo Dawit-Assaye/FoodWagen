@@ -1,7 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { FoodForm } from "../components/food-form";
+import { describe, it, expect, vi } from "vitest";
 
-describe("FoodForm", () => {
+describe("FoodForm - User Interaction (Form Input and Submission)", () => {
   it("submits values and resets the form", async () => {
     const onSubmit = vi.fn().mockResolvedValue(undefined);
     const onCancel = vi.fn();
@@ -16,16 +17,22 @@ describe("FoodForm", () => {
       />
     );
 
-    fireEvent.change(screen.getByLabelText("Food Name"), { target: { value: "Food Burger" } });
-    fireEvent.change(screen.getByLabelText("Food Rating"), { target: { value: "4.5" } });
-    fireEvent.change(screen.getByLabelText("Food Image URL"), { target: { value: "https://example.com/image.png" } });
-    fireEvent.change(screen.getByLabelText("Restaurant Name"), { target: { value: "Burger House" } });
-    fireEvent.change(screen.getByLabelText("Restaurant Logo URL"), {
-      target: { value: "https://example.com/logo.png" }
-    });
-    fireEvent.change(screen.getByLabelText("Restaurant Status"), { target: { value: "Closed" } });
+    const foodNameInput = screen.getByPlaceholderText("Enter food name");
+    const foodRatingInput = screen.getByPlaceholderText("Enter food rating");
+    const foodImageInput = screen.getByPlaceholderText("Enter food image URL");
+    const restaurantNameInput = screen.getByPlaceholderText("Enter restaurant name");
+    const restaurantLogoInput = screen.getByPlaceholderText("Enter restaurant logo URL");
+    const restaurantStatusSelect = screen.getByLabelText(/Restaurant status/i);
 
-    fireEvent.submit(screen.getByTestId("food-form"));
+    fireEvent.change(foodNameInput, { target: { value: "Food Burger" } });
+    fireEvent.change(foodRatingInput, { target: { value: "4.5" } });
+    fireEvent.change(foodImageInput, { target: { value: "https://example.com/image.png" } });
+    fireEvent.change(restaurantNameInput, { target: { value: "Burger House" } });
+    fireEvent.change(restaurantLogoInput, { target: { value: "https://example.com/logo.png" } });
+    fireEvent.change(restaurantStatusSelect, { target: { value: "Closed" } });
+
+    const submitButton = screen.getByTestId("food-submit-btn");
+    fireEvent.click(submitButton);
 
     await waitFor(() =>
       expect(onSubmit).toHaveBeenCalledWith({
@@ -39,9 +46,32 @@ describe("FoodForm", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Food Name")).toHaveValue("");
+      expect(foodNameInput).toHaveValue("");
     });
   });
-});
 
+  it("shows validation errors for required fields", async () => {
+    const onSubmit = vi.fn();
+    const onCancel = vi.fn();
+
+    render(
+      <FoodForm
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        submitLabel="Add Food"
+        pendingLabel="Adding Food..."
+        isSubmitting={false}
+      />
+    );
+
+    const submitButton = screen.getByTestId("food-submit-btn");
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText("Food Name is required")).toBeInTheDocument();
+    });
+
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+});
 

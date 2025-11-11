@@ -130,7 +130,6 @@ export const FoodDashboard = ({
     }
   };
 
-  // Handle add meal from header
   useEffect(() => {
     if (onAddMealClick) {
       const openAddModal = () => {
@@ -186,7 +185,7 @@ export const FoodDashboard = ({
       </section>
 
       <FoodModal
-        title="Add a meal"
+        title="Add Food"
         isOpen={isAddOpen}
         onClose={() => {
           setAddOpen(false);
@@ -197,15 +196,15 @@ export const FoodDashboard = ({
         <FoodForm
           onSubmit={handleCreate}
           onCancel={() => setAddOpen(false)}
-          submitLabel="Add"
-          pendingLabel="Adding..."
+          submitLabel="Add Food"
+          pendingLabel="Adding Food..."
           isSubmitting={createMutation.isPending}
           errorMessage={createError}
         />
       </FoodModal>
 
       <FoodModal
-        title="Edit Meal"
+        title="Edit Food"
         isOpen={Boolean(editingFood)}
         onClose={() => {
           setEditingFood(null);
@@ -218,7 +217,7 @@ export const FoodDashboard = ({
           onSubmit={handleUpdate}
           onCancel={() => setEditingFood(null)}
           submitLabel="Save"
-          pendingLabel="Saving..."
+          pendingLabel="Updating Food..."
           isSubmitting={updateMutation.isPending}
           testId="food-edit-form"
           errorMessage={updateError}
@@ -226,7 +225,7 @@ export const FoodDashboard = ({
       </FoodModal>
 
       <FoodModal
-        title="Delete Meal"
+        title="Delete Food"
         isOpen={Boolean(deletingFood)}
         onClose={() => {
           setDeletingFood(null);

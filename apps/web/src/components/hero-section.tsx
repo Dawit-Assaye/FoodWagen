@@ -28,7 +28,6 @@ export const HeroSection = ({
     <section className="food-relative food-w-full food-bg-[#FFB30E] food-overflow-hidden">
       <div className="food-container food-relative food-z-10 food-py-12 md:food-py-16 lg:food-py-20">
         <div className="food-grid food-grid-cols-1 lg:food-grid-cols-2 food-gap-8 food-items-center">
-          {/* Left side - Text and Search */}
           <div className="food-space-y-6 food-text-white">
             <div className="food-space-y-3">
               <h2 className="food-text-4xl md:food-text-5xl lg:food-text-6xl food-font-bold">
@@ -40,7 +39,6 @@ export const HeroSection = ({
             </div>
 
             <div className="food-bg-white food-rounded-2xl food-p-4 food-shadow-lg">
-              {/* Delivery/Pickup Toggle */}
               <div className="food-flex food-gap-2">
                 <button
                   type="button"
@@ -90,7 +88,6 @@ export const HeroSection = ({
                 </button>
               </div>
 
-              {/* Search Bar */}
               <form
                 className="food-w-full"
                 onSubmit={(e) => {
@@ -152,7 +149,6 @@ export const HeroSection = ({
             </div>
           </div>
 
-          {/* Right side - Image */}
           <div className="food-hidden lg:food-block lg:food-ml-20 lg:food-shadow-md lg:shadow-black/50">
             <div className="food-relative lg:food-absolute  lg:-food-bottom-14 lg:food-w-[22rem] xl:food-w-[28rem]">
               <div className="food-relative food-h-[24rem] lg:food-h-[26rem] xl:food-h-[28rem] food-w-full">
