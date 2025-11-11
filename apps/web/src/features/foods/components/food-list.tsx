@@ -27,7 +27,7 @@ export const FoodList = ({ foods, onEdit, onDelete }: FoodListProps) => {
   }
 
   return (
-    <div className="food-grid food-gap-6 food-grid-cols-1 md:food-grid-cols-2 xl:food-grid-cols-3">
+    <div className="food-grid food-gap-6 food-grid-cols-1 sm:food-grid-cols-2 lg:food-grid-cols-3 xl:food-grid-cols-4">
       {foods.map((food, index) => (
         <FoodCard key={food.id} food={food} onEdit={onEdit} onDelete={onDelete} index={index} />
       ))}

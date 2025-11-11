@@ -3,8 +3,8 @@ import "./globals.css";
 import { AppProviders } from "../providers/app-providers";
 
 export const metadata: Metadata = {
-  title: "FoodWagen – Manage Food Listings",
-  description: "Search, curate, and manage food items with a delightful UI built for the CoreDev assessment."
+  title: "FoodWagen – Find Meals Near You",
+  description: "Within a few clicks, find meals that are accessible near you. Order delivery or pickup from your favorite restaurants."
 };
 
 type RootLayoutProps = {
@@ -14,7 +14,7 @@ type RootLayoutProps = {
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en">
-      <body className="food-min-h-screen food-bg-[#F8F8F8]">
+      <body className="food-min-h-screen food-bg-white">
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

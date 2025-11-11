@@ -68,84 +68,126 @@ export const FoodForm = ({
   const errors = form.formState.errors;
 
   return (
-    <form onSubmit={handleSubmit} className="food-space-y-4" data-test-id={testId}>
+    <form onSubmit={handleSubmit} className="food-space-y-5" data-test-id={testId}>
       {errorMessage ? (
-        <div className="food-rounded-2xl food-bg-red-50 food-p-4 food-text-sm food-text-red-600" role="alert">
+        <div className="food-rounded-lg food-bg-red-50 food-p-3 food-text-sm food-text-red-600" role="alert">
           {errorMessage}
         </div>
       ) : null}
-      <FoodInput
-        label="Food Name"
-        placeholder="Enter food name"
-        {...form.register("food_name")}
-        name="food_name"
-        error={errors.food_name?.message}
-        descriptionId="food-name-error"
-      />
-      <FoodInput
-        label="Food Rating"
-        type="number"
-        min={1}
-        max={5}
-        step="0.1"
-        placeholder="Enter food rating (1-5)"
-        {...form.register("food_rating", { valueAsNumber: true })}
-        name="food_rating"
-        error={errors.food_rating?.message}
-        descriptionId="food-rating-error"
-      />
-      <FoodInput
-        label="Food Image URL"
-        placeholder="Enter food image URL"
-        {...form.register("food_image")}
-        name="food_image"
-        error={errors.food_image?.message}
-        descriptionId="food-image-error"
-      />
-      <FoodInput
-        label="Restaurant Name"
-        placeholder="Enter food restaurant name"
-        {...form.register("restaurant_name")}
-        name="restaurant_name"
-        error={errors.restaurant_name?.message}
-        descriptionId="restaurant-name-error"
-      />
-      <FoodInput
-        label="Restaurant Logo URL"
-        placeholder="Enter food restaurant logo URL"
-        {...form.register("restaurant_logo")}
-        name="restaurant_logo"
-        error={errors.restaurant_logo?.message}
-        descriptionId="restaurant-logo-error"
-      />
-      <div className="food-flex food-flex-col food-gap-2">
-        <label htmlFor="restaurant_status" className="food-text-sm food-font-medium food-text-secondary">
-          Restaurant Status
+      <div className="food-space-y-2">
+        <label htmlFor="food_name" className="food-text-sm food-font-medium food-text-gray-700">
+          Food name
+        </label>
+        <input
+          id="food_name"
+          type="text"
+          placeholder="Food name"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
+          {...form.register("food_name")}
+        />
+        {errors.food_name && (
+          <p className="food-text-xs food-text-red-600">{errors.food_name.message}</p>
+        )}
+      </div>
+      <div className="food-space-y-2">
+        <label htmlFor="food_rating" className="food-text-sm food-font-medium food-text-gray-700">
+          Food rating
+        </label>
+        <input
+          id="food_rating"
+          type="number"
+          min={1}
+          max={5}
+          step="0.1"
+          placeholder="Food rating"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
+          {...form.register("food_rating", { valueAsNumber: true })}
+        />
+        {errors.food_rating && (
+          <p className="food-text-xs food-text-red-600">{errors.food_rating.message}</p>
+        )}
+      </div>
+      <div className="food-space-y-2">
+        <label htmlFor="food_image" className="food-text-sm food-font-medium food-text-gray-700">
+          Food image (link)
+        </label>
+        <input
+          id="food_image"
+          type="url"
+          placeholder="Food image (link)"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
+          {...form.register("food_image")}
+        />
+        {errors.food_image && (
+          <p className="food-text-xs food-text-red-600">{errors.food_image.message}</p>
+        )}
+      </div>
+      <div className="food-space-y-2">
+        <label htmlFor="restaurant_name" className="food-text-sm food-font-medium food-text-gray-700">
+          Restaurant name
+        </label>
+        <input
+          id="restaurant_name"
+          type="text"
+          placeholder="Restaurant name"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
+          {...form.register("restaurant_name")}
+        />
+        {errors.restaurant_name && (
+          <p className="food-text-xs food-text-red-600">{errors.restaurant_name.message}</p>
+        )}
+      </div>
+      <div className="food-space-y-2">
+        <label htmlFor="restaurant_logo" className="food-text-sm food-font-medium food-text-gray-700">
+          Restaurant logo (link)
+        </label>
+        <input
+          id="restaurant_logo"
+          type="url"
+          placeholder="Restaurant logo (link)"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
+          {...form.register("restaurant_logo")}
+        />
+        {errors.restaurant_logo && (
+          <p className="food-text-xs food-text-red-600">{errors.restaurant_logo.message}</p>
+        )}
+      </div>
+      <div className="food-space-y-2">
+        <label htmlFor="restaurant_status" className="food-text-sm food-font-medium food-text-gray-700">
+          Restaurant status (open/close)
         </label>
         <select
           id="restaurant_status"
-          className="food-rounded-full food-border food-border-muted food-bg-white food-px-5 food-py-3 food-text-sm food-text-secondary focus:food-border-primary focus:food-ring-2 focus:food-ring-primary"
+          className="food-w-full food-rounded-lg food-border food-border-gray-300 food-bg-gray-50 food-px-4 food-py-3 food-text-sm focus:food-outline-none focus:food-ring-2 focus:food-ring-[#FF6B35] focus:food-border-transparent"
           {...form.register("restaurant_status")}
-          name="restaurant_status"
-          aria-describedby="restaurant-status-error"
         >
           {restaurantStatusOptions.map((status) => (
             <option key={status} value={status}>
-              {status}
+              {status === "Open Now" ? "open" : "close"}
             </option>
           ))}
         </select>
-        {errors.restaurant_status ? (
-          <p id="restaurant-status-error" className="food-text-xs food-text-red-600">
-            {errors.restaurant_status.message}
-          </p>
-        ) : null}
+        {errors.restaurant_status && (
+          <p className="food-text-xs food-text-red-600">{errors.restaurant_status.message}</p>
+        )}
       </div>
       <div className="food-flex food-justify-end food-gap-3 food-pt-4">
-        <FoodButton type="button" variant="ghost" onClick={onCancel} data-test-id="food-cancel-btn">
+        <FoodButton
+          type="button"
+          variant="ghost"
+          onClick={onCancel}
+          data-test-id="food-cancel-btn"
+          className="food-rounded-lg food-border food-border-gray-300 food-bg-white food-text-gray-700 hover:food-bg-gray-50"
+        >
           Cancel
         </FoodButton>
-        <FoodButton type="submit" variant="primary" isLoading={isSubmitting} data-test-id="food-submit-btn">
+        <FoodButton
+          type="submit"
+          variant="primary"
+          isLoading={isSubmitting}
+          data-test-id="food-submit-btn"
+          className="food-rounded-lg food-bg-[#FF6B35] hover:food-bg-[#FF6B35]/90"
+        >
           {isSubmitting ? pendingLabel : submitLabel}
         </FoodButton>
       </div>

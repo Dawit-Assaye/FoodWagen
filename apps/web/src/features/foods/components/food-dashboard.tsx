@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { FoodButton, FoodModal, FoodSpinner } from "@foodwagen/ui";
 import type { FoodItem } from "@foodwagen/types";
 import { FoodSearchBar } from "./food-search-bar";
@@ -20,8 +20,18 @@ const toPayload = (values: FoodFormValues) => ({
   },
 });
 
-export const FoodDashboard = () => {
-  const [search, setSearch] = useState("");
+type FoodDashboardProps = {
+  onAddMealClick?: () => void;
+  onSearch?: (query: string) => void;
+  searchQuery?: string;
+};
+
+export const FoodDashboard = ({
+  onAddMealClick,
+  onSearch,
+  searchQuery = "",
+}: FoodDashboardProps) => {
+  const [search, setSearch] = useState(searchQuery);
   const [isAddOpen, setAddOpen] = useState(false);
   const [editingFood, setEditingFood] = useState<FoodItem | null>(null);
   const [deletingFood, setDeletingFood] = useState<FoodItem | null>(null);
@@ -32,7 +42,29 @@ export const FoodDashboard = () => {
   const { data: foods = [], isLoading, isError, error, isFetching } = useFoodsQuery(search);
   const { createMutation, updateMutation, deleteMutation } = useFoodMutations(search);
 
-  const sortedFoods = useMemo(() => foods.slice().sort((a, b) => b.rating - a.rating), [foods]);
+  const sortedFoods = useMemo(
+    () =>
+      foods.slice().sort((a, b) => {
+        const ratingA = typeof a.rating === "number" ? a.rating : Number(a.rating) || 0;
+        const ratingB = typeof b.rating === "number" ? b.rating : Number(b.rating) || 0;
+        return ratingB - ratingA;
+      }),
+    [foods],
+  );
+
+  // Sync external search query
+  useEffect(() => {
+    if (searchQuery !== search) {
+      setSearch(searchQuery);
+    }
+  }, [searchQuery, search]);
+
+  // Expose add meal handler
+  useEffect(() => {
+    if (onAddMealClick) {
+      // Store the handler for later use
+    }
+  }, [onAddMealClick]);
 
   const handleEditRequest = (food: FoodItem) => {
     setUpdateError(null);
@@ -85,36 +117,32 @@ export const FoodDashboard = () => {
     }
   };
 
-  return (
-    <div className="food-space-y-12">
-      <header className="food-flex food-flex-col food-gap-6">
-        <div className="food-flex food-flex-col md:food-flex-row md:food-items-center md:food-justify-between food-gap-6">
-          <div className="food-space-y-2">
-            <h1 className="food-text-3xl md:food-text-4xl food-font-bold food-text-secondary">
-              FoodWagen Dashboard
-            </h1>
-            <p className="food-text-sm md:food-text-base food-text-muted food-max-w-2xl">
-              Manage featured food items, keep restaurant details up to date, and delight your
-              customers.
-            </p>
-          </div>
-          <FoodButton
-            variant="primary"
-            onClick={() => {
-              setCreateError(null);
-              setAddOpen(true);
-            }}
-            data-test-id="food-add-btn"
-            disabled={createMutation.isPending}
-            isLoading={createMutation.isPending}
-          >
-            {createMutation.isPending ? "Adding Food..." : "Add Food"}
-          </FoodButton>
-        </div>
-        <FoodSearchBar value={search} onChange={setSearch} />
-      </header>
+  // Handle add meal from header
+  useEffect(() => {
+    if (onAddMealClick) {
+      // Use a ref-like approach to expose the handler
+      const openAddModal = () => {
+        setCreateError(null);
+        setAddOpen(true);
+      };
+      // Store in window for header to access (temporary solution)
+      (window as any).__openAddMealModal = openAddModal;
+    }
+    return () => {
+      if ((window as any).__openAddMealModal) {
+        delete (window as any).__openAddMealModal;
+      }
+    };
+  }, [onAddMealClick]);
 
-      <section className="food-space-y-6" aria-live="polite">
+  return (
+    <div className="food-container food-py-8 md:food-py-12">
+      <section className="food-space-y-8" aria-live="polite">
+        <div className="food-text-center food-mb-8">
+          <h2 className="food-text-3xl md:food-text-4xl food-font-bold food-text-gray-800 food-mb-2">
+            Featured Meals
+          </h2>
+        </div>
         {isLoading ? (
           <div className="food-flex food-flex-col food-items-center food-justify-center food-rounded-3xl food-bg-white food-p-12 food-shadow-raised food-gap-4">
             <FoodSpinner className="food-h-10 food-w-10" />
@@ -146,62 +174,40 @@ export const FoodDashboard = () => {
         )}
       </section>
 
-      <footer className="food-rounded-3xl food-bg-secondary food-p-10 food-text-white">
-        <div className="food-flex food-flex-col md:food-flex-row md:food-items-center md:food-justify-between food-gap-6">
-          <div>
-            <h2 className="food-text-xl food-font-semibold">FoodWagen</h2>
-            <p className="food-text-sm food-text-white/70">
-              Curating great meals for modern foodies.
-            </p>
-          </div>
-          <nav className="food-flex food-gap-6" aria-label="Footer navigation">
-            <a className="food-text-sm food-font-medium" href="#menu">
-              Menu
-            </a>
-            <a className="food-text-sm food-font-medium" href="#about">
-              About
-            </a>
-            <a className="food-text-sm food-font-medium" href="#contact">
-              Contact
-            </a>
-          </nav>
-        </div>
-      </footer>
-
       <FoodModal
-        title="Add Food Item"
-        description="Provide details for the new delicious food item."
+        title="Add a meal"
         isOpen={isAddOpen}
         onClose={() => {
           setAddOpen(false);
           setCreateError(null);
         }}
+        size="md"
       >
         <FoodForm
           onSubmit={handleCreate}
           onCancel={() => setAddOpen(false)}
-          submitLabel="Add Food"
-          pendingLabel="Adding Food..."
+          submitLabel="Add"
+          pendingLabel="Adding..."
           isSubmitting={createMutation.isPending}
           errorMessage={createError}
         />
       </FoodModal>
 
       <FoodModal
-        title={`Edit ${editingFood?.name ?? "Food"}`}
-        description="Update food details and restaurant information."
+        title="Edit Meal"
         isOpen={Boolean(editingFood)}
         onClose={() => {
           setEditingFood(null);
           setUpdateError(null);
         }}
+        size="md"
       >
         <FoodForm
           defaultValues={mapFoodToFormValues(editingFood ?? undefined)}
           onSubmit={handleUpdate}
           onCancel={() => setEditingFood(null)}
-          submitLabel="Update Food"
-          pendingLabel="Updating Food..."
+          submitLabel="Save"
+          pendingLabel="Saving..."
           isSubmitting={updateMutation.isPending}
           testId="food-edit-form"
           errorMessage={updateError}
@@ -209,22 +215,21 @@ export const FoodDashboard = () => {
       </FoodModal>
 
       <FoodModal
-        title={`Delete ${deletingFood?.name ?? "Food"}?`}
-        description="This action cannot be undone. The food item will be permanently removed."
+        title="Delete Meal"
         isOpen={Boolean(deletingFood)}
         onClose={() => {
           setDeletingFood(null);
           setDeleteError(null);
         }}
+        size="sm"
       >
-        <div className="food-space-y-4">
-          <p className="food-text-sm food-text-secondary">
-            Confirm you want to delete <strong>{deletingFood?.name}</strong> and remove it from your
-            catalog.
+        <div className="food-space-y-6">
+          <p className="food-text-sm food-text-gray-700">
+            Are you sure you want to delete this meal? Actions cannot be reversed.
           </p>
           {deleteError ? (
             <div
-              className="food-rounded-2xl food-bg-red-50 food-p-4 food-text-sm food-text-red-600"
+              className="food-rounded-lg food-bg-red-50 food-p-3 food-text-sm food-text-red-600"
               role="alert"
             >
               {deleteError}
@@ -235,16 +240,18 @@ export const FoodDashboard = () => {
               variant="ghost"
               onClick={() => setDeletingFood(null)}
               data-test-id="food-delete-cancel-btn"
+              className="food-rounded-lg food-border food-border-[#FF6B35] food-bg-white food-text-[#FF6B35] hover:food-bg-gray-50"
             >
               Cancel
             </FoodButton>
             <FoodButton
-              variant="danger"
+              variant="primary"
               onClick={handleDelete}
               isLoading={deleteMutation.isPending}
               data-test-id="food-delete-confirm-btn"
+              className="food-rounded-lg food-bg-[#FF6B35] hover:food-bg-[#FF6B35]/90"
             >
-              {deleteMutation.isPending ? "Deleting Food..." : "Delete Food"}
+              {deleteMutation.isPending ? "Deleting..." : "Yes"}
             </FoodButton>
           </div>
         </div>

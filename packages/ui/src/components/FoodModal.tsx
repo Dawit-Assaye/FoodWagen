@@ -37,26 +37,17 @@ export const FoodModal = ({
       }}
     >
       <div
-        className={`food-w-full food-max-h-[90vh] food-overflow-y-auto food-rounded-3xl food-bg-white food-p-6 food-shadow-raised food-animate-food-slide-up food-space-y-6 md:food-mx-auto ${sizeMap[size]}`}
+        className={`food-w-full food-max-h-[90vh] food-overflow-y-auto food-rounded-2xl food-bg-white food-p-6 food-shadow-xl food-animate-food-slide-up md:food-mx-auto ${sizeMap[size]}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <header className="food-flex food-items-start food-justify-between food-gap-4">
-          <div className="food-space-y-2">
-            <h2 className="food-text-2xl food-font-semibold food-text-secondary">{title}</h2>
-            {description ? <p className="food-text-sm food-text-muted">{description}</p> : null}
-          </div>
-          <FoodButton
-            variant="ghost"
-            aria-label="Close modal"
-            data-test-id="food-modal-close-btn"
-            onClick={onClose}
-          >
-            Close
-          </FoodButton>
+        <header className="food-mb-6">
+          <h2 className="food-text-2xl food-font-bold food-text-[#FF6B35] food-text-center">
+            {title}
+          </h2>
         </header>
-        <section className="food-space-y-4">{children}</section>
+        <section>{children}</section>
         {footer ? (
-          <footer className="food-flex food-justify-end food-gap-3">{footer}</footer>
+          <footer className="food-flex food-justify-end food-gap-3 food-mt-6">{footer}</footer>
         ) : null}
       </div>
     </div>
