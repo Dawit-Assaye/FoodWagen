@@ -6,13 +6,11 @@
   "engines": {
     "node": ">=20.11"
   },
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*",
-      "tooling/*"
-    ]
-  },
+"workspaces": [
+  "apps/*",
+  "packages/*",
+  "tooling/*"
+],
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf node_modules .turbo .yarn/cache",
