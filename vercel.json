@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm install -g yarn@4.5.0 && /usr/local/bin/yarn install && /usr/local/bin/yarn turbo run build --filter=web",
-  "installCommand": "npm install -g yarn@4.5.0 && /usr/local/bin/yarn install",
+  "buildCommand": "corepack enable && corepack install -g yarn@4.5.0 && yarn install && yarn turbo run build --filter=web",
+  "installCommand": "corepack enable && corepack install -g yarn@4.5.0 && yarn install",
   "framework": null,
   "outputDirectory": "apps/web/.next"
 }
