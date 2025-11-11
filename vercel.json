@@ -2,6 +2,12 @@
   "buildCommand": "corepack enable && corepack install -g yarn@4.5.0 && yarn install && yarn dlx turbo run build --filter=web",
   "installCommand": "corepack enable && corepack install -g yarn@4.5.0 && yarn install",
   "framework": null,
-  "outputDirectory": "apps/web/.next"
+  "outputDirectory": "apps/web/.next",
+    "builds": [
+      {
+        "src": "apps/web/package.json",
+        "use": "@vercel/next"
+      }
+    ]
 }
 
