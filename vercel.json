@@ -1,0 +1,8 @@
+{
+  "buildCommand": "corepack enable && corepack prepare yarn@4.5.0 --activate && yarn install && yarn turbo run build --filter=web",
+  "installCommand": "corepack enable && corepack prepare yarn@4.5.0 --activate && yarn install",
+  "framework": null,
+  "outputDirectory": "apps/web/.next",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ."
+}
+
