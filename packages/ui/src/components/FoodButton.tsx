@@ -1,7 +1,13 @@
 import { ComponentProps, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export type FoodButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+export type FoodButtonVariant =
+  | "primary"
+  | "secondary"
+  | "secondaryGradient"
+  | "primaryGradient"
+  | "ghost"
+  | "danger";
 
 export type FoodButtonProps = ComponentProps<"button"> & {
   variant?: FoodButtonVariant;
@@ -11,6 +17,10 @@ export type FoodButtonProps = ComponentProps<"button"> & {
 const variantStyles: Record<FoodButtonVariant, string> = {
   primary: "food-bg-primary food-text-white hover:food-bg-primary/90",
   secondary: "food-bg-secondary food-text-white hover:food-bg-secondary/80",
+  secondaryGradient:
+    "food-bg-gradient-to-r from-secondary to-primary food-text-white hover:food-bg-gradient-to-r hover:from-primary hover:to-secondary",
+  primaryGradient:
+    "food-bg-gradient-to-r from-primary to-secondary food-text-white hover:food-bg-gradient-to-r hover:from-secondary hover:to-primary",
   ghost: "food-bg-transparent food-text-secondary hover:food-bg-secondary/10",
   danger: "food-bg-red-600 food-text-white hover:food-bg-red-500",
 };

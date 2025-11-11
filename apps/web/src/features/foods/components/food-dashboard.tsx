@@ -2,14 +2,14 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { FoodButton, FoodModal, FoodSpinner } from "@foodwagen/ui";
-import type { FoodItem } from "@foodwagen/types";
+import type { FoodItem, FoodItemPayload, ServiceType } from "@foodwagen/types";
 import { FoodSearchBar } from "./food-search-bar";
 import { FoodList } from "./food-list";
 import { FoodForm, mapFoodToFormValues } from "./food-form";
 import { FoodFormValues } from "../food-form-schema";
 import { useFoodMutations, useFoodsQuery } from "../hooks";
 
-const toPayload = (values: FoodFormValues) => ({
+const toPayload = (values: FoodFormValues, serviceType: ServiceType): FoodItemPayload => ({
   name: values.food_name,
   rating: Number(values.food_rating),
   image: values.food_image,
@@ -18,20 +18,20 @@ const toPayload = (values: FoodFormValues) => ({
     logo: values.restaurant_logo,
     status: values.restaurant_status,
   },
+  serviceType,
 });
 
 type FoodDashboardProps = {
   onAddMealClick?: () => void;
-  onSearch?: (query: string) => void;
   searchQuery?: string;
+  serviceType: ServiceType;
 };
 
 export const FoodDashboard = ({
   onAddMealClick,
-  onSearch,
   searchQuery = "",
+  serviceType,
 }: FoodDashboardProps) => {
-  const [search, setSearch] = useState(searchQuery);
   const [isAddOpen, setAddOpen] = useState(false);
   const [editingFood, setEditingFood] = useState<FoodItem | null>(null);
   const [deletingFood, setDeletingFood] = useState<FoodItem | null>(null);
@@ -39,32 +39,43 @@ export const FoodDashboard = ({
   const [updateError, setUpdateError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  const { data: foods = [], isLoading, isError, error, isFetching } = useFoodsQuery(search);
-  const { createMutation, updateMutation, deleteMutation } = useFoodMutations(search);
+  const {
+    data: foods = [],
+    isLoading,
+    isError,
+    error,
+    isFetching,
+  } = useFoodsQuery(searchQuery, serviceType);
+  const { createMutation, updateMutation, deleteMutation } = useFoodMutations(
+    searchQuery,
+    serviceType,
+  );
+
+  const filteredFoods = useMemo(() => {
+    return foods.filter((item) => {
+      const currentType =
+        item.serviceType ??
+        (item as FoodItem & { service_type?: string; type?: string }).serviceType ??
+        ((item as { service_type?: string }).service_type as ServiceType | undefined) ??
+        ((item as { type?: string }).type as ServiceType | undefined);
+
+      if (!currentType) {
+        return serviceType === "Delivery";
+      }
+
+      return currentType === serviceType;
+    });
+  }, [foods, serviceType]);
 
   const sortedFoods = useMemo(
     () =>
-      foods.slice().sort((a, b) => {
+      filteredFoods.slice().sort((a, b) => {
         const ratingA = typeof a.rating === "number" ? a.rating : Number(a.rating) || 0;
         const ratingB = typeof b.rating === "number" ? b.rating : Number(b.rating) || 0;
         return ratingB - ratingA;
       }),
-    [foods],
+    [filteredFoods],
   );
-
-  // Sync external search query
-  useEffect(() => {
-    if (searchQuery !== search) {
-      setSearch(searchQuery);
-    }
-  }, [searchQuery, search]);
-
-  // Expose add meal handler
-  useEffect(() => {
-    if (onAddMealClick) {
-      // Store the handler for later use
-    }
-  }, [onAddMealClick]);
 
   const handleEditRequest = (food: FoodItem) => {
     setUpdateError(null);
@@ -79,7 +90,7 @@ export const FoodDashboard = ({
   const handleCreate = async (values: FoodFormValues) => {
     try {
       setCreateError(null);
-      await createMutation.mutateAsync(toPayload(values));
+      await createMutation.mutateAsync(toPayload(values, serviceType));
       setAddOpen(false);
     } catch (err) {
       setCreateError(
@@ -94,7 +105,9 @@ export const FoodDashboard = ({
       setUpdateError(null);
       await updateMutation.mutateAsync({
         id: editingFood.id,
-        payload: toPayload(values),
+        payload: {
+          ...toPayload(values, editingFood.serviceType ?? serviceType),
+        },
       });
       setEditingFood(null);
     } catch (err) {
@@ -120,12 +133,10 @@ export const FoodDashboard = ({
   // Handle add meal from header
   useEffect(() => {
     if (onAddMealClick) {
-      // Use a ref-like approach to expose the handler
       const openAddModal = () => {
         setCreateError(null);
         setAddOpen(true);
       };
-      // Store in window for header to access (temporary solution)
       (window as any).__openAddMealModal = openAddModal;
     }
     return () => {
@@ -133,7 +144,7 @@ export const FoodDashboard = ({
         delete (window as any).__openAddMealModal;
       }
     };
-  }, [onAddMealClick]);
+  }, [onAddMealClick, serviceType]);
 
   return (
     <div className="food-container food-py-8 md:food-py-12">

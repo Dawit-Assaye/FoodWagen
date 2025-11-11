@@ -1,3 +1,5 @@
+export type ServiceType = "Delivery" | "Pickup";
+
 export type RestaurantStatus = "Open Now" | "Closed";
 
 export type Restaurant = {
@@ -14,6 +16,7 @@ export type FoodItem = {
   price?: number;
   image: string;
   restaurant?: Restaurant;
+  serviceType?: ServiceType;
   createdAt?: string;
   updatedAt?: string;
 };

@@ -14,7 +14,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="food-w-full food-bg-gray-800 food-text-white food-mt-16">
+    <footer className="food-w-full food-bg-[#212121] food-text-white food-mt-16">
       <div className="food-container food-py-12 food-px-4 md:food-px-6 lg:food-px-8">
         <div className="food-grid food-grid-cols-1 md:food-grid-cols-2 lg:food-grid-cols-4 food-gap-8 food-mb-8">
           {/* Company */}
@@ -22,22 +22,34 @@ export const Footer = () => {
             <h3 className="food-text-lg food-font-bold food-mb-4">Company</h3>
             <ul className="food-space-y-2 food-text-gray-400">
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   About us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Team
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Blog
                 </a>
               </li>
@@ -49,17 +61,26 @@ export const Footer = () => {
             <h3 className="food-text-lg food-font-bold food-mb-4">Contact</h3>
             <ul className="food-space-y-2 food-text-gray-400">
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Help & Support
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Partner with us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Ride with us
                 </a>
               </li>
@@ -71,22 +92,34 @@ export const Footer = () => {
             <h3 className="food-text-lg food-font-bold food-mb-4">Legal</h3>
             <ul className="food-space-y-2 food-text-gray-400">
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Refund & Cancellation
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:food-text-white food-transition-colors">
+                <a
+                  href="#"
+                  className="food-text-gray-400 hover:food-text-secondary food-transition-colors"
+                >
                   Cookie Policy
                 </a>
               </li>
@@ -95,11 +128,11 @@ export const Footer = () => {
 
           {/* Follow Us & Newsletter */}
           <div>
-            <h3 className="food-text-lg food-font-bold food-mb-4">FOLLOW US</h3>
+            <h3 className="food-text-lg food-text-gray-400 food-font-bold food-mb-4">FOLLOW US</h3>
             <div className="food-flex food-gap-4 food-mb-6">
               <a
                 href="#"
-                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-bg-gray-700 food-rounded-full hover:food-bg-[#FF6B35] food-transition-colors"
+                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-text-white  food-rounded-full hover:food-bg-secondary food-transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="food-w-5 food-h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -108,7 +141,7 @@ export const Footer = () => {
               </a>
               <a
                 href="#"
-                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-bg-gray-700 food-rounded-full hover:food-bg-[#FF6B35] food-transition-colors"
+                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-text-white  food-rounded-full hover:food-bg-secondary food-transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="food-w-5 food-h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -117,7 +150,7 @@ export const Footer = () => {
               </a>
               <a
                 href="#"
-                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-bg-gray-700 food-rounded-full hover:food-bg-[#FF6B35] food-transition-colors"
+                className="food-w-10 food-h-10 food-flex food-items-center food-justify-center food-text-white  food-rounded-full hover:food-bg-secondary food-transition-colors"
                 aria-label="Twitter"
               >
                 <svg className="food-w-5 food-h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -125,7 +158,7 @@ export const Footer = () => {
                 </svg>
               </a>
             </div>
-            <p className="food-text-sm food-text-gray-400 food-mb-4">
+            <p className="food-text-base food-text-gray-400 food-mb-4 food-font-semibold">
               Receive exclusive offers in your mailbox
             </p>
             <form onSubmit={handleSubscribe} className="food-space-y-3">
@@ -153,7 +186,7 @@ export const Footer = () => {
               </div>
               <FoodButton
                 type="submit"
-                variant="primary"
+                variant="secondary"
                 className="food-w-full food-rounded-lg food-py-3"
               >
                 Subscribe
@@ -165,9 +198,12 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="food-border-t food-border-gray-700 food-pt-8 food-mt-8">
           <div className="food-flex food-flex-col md:food-flex-row food-items-center food-justify-between food-gap-4 food-text-sm food-text-gray-400">
-            <p>All rights Reserved © Your Company, 2021</p>
             <p>
-              Made with <span className="food-text-[#FF6B35]">❤️</span> by Themewagon
+              All rights Reserved ©
+              <span className="food-text-white"> A2SV , {new Date().getFullYear()}</span>
+            </p>
+            <p>
+              Made with <span className="food-text-primary">❤️</span> by Dawit Assaye
             </p>
           </div>
         </div>
@@ -175,4 +211,3 @@ export const Footer = () => {
     </footer>
   );
 };
-

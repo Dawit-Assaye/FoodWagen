@@ -1,45 +1,49 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { FoodItem, FoodItemPayload } from "@foodwagen/types";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { FoodItem, FoodItemPayload, ServiceType } from "@foodwagen/types";
 import { createFood, deleteFood, fetchFoods, updateFood } from "./api";
 
-const foodsQueryKey = (search: string) => ["foods", search] as const;
+const foodsQueryKey = (search: string, serviceType: ServiceType) =>
+  ["foods", search, serviceType] as const;
 
-export const useFoodsQuery = (search: string) =>
+export const useFoodsQuery = (search: string, serviceType: ServiceType) =>
   useQuery({
-    queryKey: foodsQueryKey(search),
-    queryFn: () => fetchFoods(search),
-    staleTime: 60_000
+    queryKey: foodsQueryKey(search, serviceType),
+    queryFn: () => fetchFoods(search, serviceType),
+    staleTime: 60_000,
+    placeholderData: keepPreviousData,
   });
 
-export const useFoodMutations = (search: string) => {
+export const useFoodMutations = (search: string, serviceType: ServiceType) => {
   const queryClient = useQueryClient();
-  const invalidateFoods = () => queryClient.invalidateQueries({ queryKey: foodsQueryKey(search) });
+  const invalidateFoods = () =>
+    queryClient.invalidateQueries({ queryKey: foodsQueryKey(search, serviceType) });
 
   const createMutation = useMutation({
     mutationFn: (payload: FoodItemPayload) => createFood(payload),
     onSuccess: () => {
       void invalidateFoods();
-    }
+    },
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, payload }: { id: string; payload: FoodItemPayload }) => updateFood(id, payload),
+    mutationFn: ({ id, payload }: { id: string; payload: FoodItemPayload }) =>
+      updateFood(id, payload),
     onSuccess: () => {
       void invalidateFoods();
-    }
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteFood(id),
     onSuccess: () => {
       void invalidateFoods();
-    }
+    },
   });
 
   return {
     createMutation,
     updateMutation,
-    deleteMutation
+    deleteMutation,
   };
 };
 
@@ -47,5 +51,3 @@ export const toFoodPayload = (item: FoodItem): FoodItemPayload => {
   const { id, ...rest } = item;
   return rest;
 };
-
-
